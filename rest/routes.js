@@ -13,7 +13,7 @@ module.exports = function(app, config) {
   app.route('/growthhack/flightNums')
   	.post(flightAwareObj.getAllFlightNums)
   app.route('/growthhack/acceptAlerts')
-  	.post(fligthAwareObj.storeAlerts)
+  	.post(flightAwareObj.storeAlerts)
 
  // app.route('/couchbase-inventory/:clusterid')
  //   .delete(todoList.delete_a_cluster);
