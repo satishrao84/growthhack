@@ -31,7 +31,7 @@ exports.getStoreJson = function(faUri,username,password,path, params, cb){
 	  			}
 	  		}
 
-	  		//logger.info("data before end" + JSON.stringify(data));
+	  		logger.info("data before end" + JSON.stringify(data));
 	  		resolve(response)
 	  		return data
 	  		
