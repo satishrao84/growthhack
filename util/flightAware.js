@@ -34,4 +34,11 @@ flightAware.prototype.getAllFlightNums = function(req,res){
 	
 }
 
+flightAware.prototype.storeAlerts = function(req,res){
+	var payload = req.body;
+
+	flightAwareServiceObj.storeAlerts(req,res,payload,config)
+	
+}
+
 module.exports = flightAware;

@@ -12,6 +12,7 @@
     "async": "^2.5.0",
     "bluebird": "^3.5.0",
     "clone": "^2.1.1",
+    "couchbase": "^2.5.1",
     "fs-extra": "^5.0.0",
     "get-json": "^1.0.0",
     "http": "0.0.0",

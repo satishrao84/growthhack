@@ -1,9 +1,13 @@
 {
-	"port":3000,
+	"port":8212,
 	"api_key":"c3fb3c80681e0caccf5c5240417bce4a166b614f",
 	"username":"satishrao",
 	"flight_uri":"http://flightxml.flightaware.com",
 	"alert_uri":"https://webhook.site/9cae4c6c-75b7-4adf-965e-8bf43652cb7c",
+	"cb_bucket":"growthhack-notify",
+	"cb_user":"Administrator",
+	"cb_pwd":"password",
+	"cb_url":"52.27.95.241:8091",
 	  "winston": {
        "console": {
           "timestamp": true,

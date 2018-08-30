@@ -11,6 +11,7 @@ var logger = require('winston').loggers.get('growthhack');
 var apiKey;
 var apiUsername;
 var flightAwareRestURI;
+var couchbase = require('couchbase')
 var flight_aware_service = function(apiKey,apiUsername,flightAwareRestURI){
 	apiKey = apiKey;
 	apiUsername = apiUsername;
@@ -49,5 +50,25 @@ flight_aware_service.prototype.getAllFlightNums = function(req,res,payload,confi
 		
 			})
 }
+
+flight_aware_service.prototype.storeAlerts = function(req,res,payload,config){
+	
+	var cb_url = 'couchbase://' + config.cb_url
+	var cluster = new couchbase.Cluster(cb_url);
+	cluster.authenticate(config.cb_user, config.cb_pwd);
+	var bucket = cluster.openBucket(config.cb_bucket);
+	var key = payload.flights.faFlightID;
+	 bucket.upsert(key,payload,function(err,result){
+         if(err){
+             logger.error("error while upserting : " + err)
+         }
+         else{
+        	 logger.info("successful inserts")
+        	 res.status(200)
+        	 return res.json({"success":"ok"})
+         }
+	 })
+}
+
 
 module.exports = flight_aware_service;

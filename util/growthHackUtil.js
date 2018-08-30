@@ -37,6 +37,10 @@ exports.readConfigFile = function(filename, cb) {
     	config.username = (config.username)?config.username:"satishrao";
     	config.flight_uri = (config.flight_uri)?config.flight_uri:"http://flightxml.flightaware.com";
     	config.alert_uri = (config.alert_uri)?config.alert_uri:"https://webhook.site/9cae4c6c-75b7-4adf-965e-8bf43652cb7c"
+    	config.cb_user = (config.cb_user)?config.cb_user:"Administrator";
+    	config.cb_pwd = (config.cb_pwd)?config.cb_pwd:"password";
+    	config.cb_bucket = (config.cb_bucket)?config.cb_bucket:"growthhack-notify"
+    	config.cb_url = (config.cb_url)?config.cb_url:"52.27.95.241:8091"
     	cb(null, config);
     })
 }
