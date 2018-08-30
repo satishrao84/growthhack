@@ -27,6 +27,7 @@ flight_aware_service.prototype.getAllFlightNums = function(req,res,payload,confi
 	var promises = [];
 	//var server = payload.flights[0];
 	logger.info("in flight aware service : " + config.api_key + " " + config.username + " " + config.flight_uri)
+	logger.info("PAYLOAD  : " + JSON.stringify(payload))
 	payload.flights[Symbol.iterator] = Array.prototype[Symbol.iterator]
 	Promise.map(payload.flights,function(flight){
 		flightAwareRestURI = config.flight_uri;
