@@ -3,13 +3,13 @@
  */
 var http = require('http');
 var Client =  require('node-rest-client').Client;
-var logger = require('winston').loggers.get('storedb');
+var logger = require('winston').loggers.get('growthhack');
 var Promise = require('bluebird');
 
 exports.getStoreJson = function(faUri,username,password,path, params, cb){
 	
 	return new Promise((resolve,reject) => {
-		
+		logger.debug("params " + JSON.stringify(params))
 		var options = {
 			  'password': password.toString(),
 			  'user':username.toString()			
@@ -31,12 +31,18 @@ exports.getStoreJson = function(faUri,username,password,path, params, cb){
 	  			}
 	  		}
 
-		  //logger.info(path);	  		
+	  		logger.info("data before end" + JSON.stringify(data));
+	  		resolve(response)
+	  		return data
 	  		
-
+/*	  		response.on('end',function(){
+	  			logger.info("data in the end " + JSON.stringify(data) )
+	  			resolve(response);
+	  			return data;
+	  		});*/
 	  		
 	  		//logger.info('HEADERS: ' + JSON.stringify(res.headers));
-	  		response.setEncoding('utf8');
+/*	  		response.setEncoding('utf8');
 	  		response.on('data',function(chunk){
 	  			fullJson += chunk;
 	  			logger.info("OUTPUT OF GET " + JSON.stringify(chunk))
@@ -48,7 +54,7 @@ exports.getStoreJson = function(faUri,username,password,path, params, cb){
 	  			resolve(fullJson);
 
 	  			typeof cb === 'function' && cb(fullJson);
-	  		});
+	  		});*/
 	  	});		
 	    //request.on('error', reject);
 		//request.end();

@@ -30,7 +30,7 @@ flight_aware_service.prototype.getAllFlightNums = function(req,res,payload,confi
 		flightAwareRestURI = config.flight_uri;
 		apiKey = config.api_key;
 		apiUsername = config.username;
-		var flightDepTS = new Date(flight.TravelDate);
+		var flightDepTS = new Date(flight.TravelDate).getTime()/1000;
 		var start_date = flightDepTS - 10800; 
 		var end_date = flightDepTS + 10800;
 		var params = {}
@@ -38,12 +38,16 @@ flight_aware_service.prototype.getAllFlightNums = function(req,res,payload,confi
 		params['date_start'] = start_date;
 		params['date_end'] = end_date;
 		params['channels'] = "{16 e_filed e_departure e_arrival e_diverted e_cancelled}"
-		return getJson.getStoreJson(flightAwareRestURI,apiUsername,apiKey,'/json/FlightXML2/SetAlert',params)},{concurrency:1}).then(function(alertResults){
-		logger.info("ALERT RESULTS " + alertResults);
-		return res.json(alertResults);
+			
+		return getJson.getStoreJson(flightAwareRestURI,apiUsername,apiKey,'/json/FlightXML2/SetAlert',params)},
+			{concurrency:1}).then(function(alertResults){
+				//logger.info("ALERT RESULTS " + JSON.stringify(alertResults));
+				//resolve(alertResults);
+				//res.status(200);
+				//return res.json(alertResults);
+				return
 		
-		
-	})
+			})
 }
 
 module.exports = flight_aware_service;
