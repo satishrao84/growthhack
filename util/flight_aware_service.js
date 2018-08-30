@@ -29,7 +29,14 @@ flight_aware_service.prototype.getAllFlightNums = function(req,res,payload,confi
 	logger.info("in flight aware service : " + config.api_key + " " + config.username + " " + config.flight_uri)
 	logger.info("PAYLOAD  : " + JSON.stringify(payload))
 	payload.flights[Symbol.iterator] = Array.prototype[Symbol.iterator]
-	Promise.map(payload.flights,function(flight){
+/*	for(var i = 0; i < payload.flights.length; i++){
+		
+	}*/
+	
+	var filteredArray = payload.flights.filter(function(item, pos){
+		  return payload.flights.indexOf(item)== pos; 
+	});
+	Promise.map(filteredArray,function(flight){
 		flightAwareRestURI = config.flight_uri;
 		apiKey = config.api_key;
 		apiUsername = config.username;
@@ -59,6 +66,7 @@ flight_aware_service.prototype.storeAlerts = function(req,res,payload,config){
 	var cluster = new couchbase.Cluster(cb_url);
 	cluster.authenticate(config.cb_user, config.cb_pwd);
 	var bucket = cluster.openBucket(config.cb_bucket);
+	bucket.operationTimeout = 60000;
 	var key = payload.flight.faFlightID;
 	 bucket.upsert(key,payload,function(err,result){
          if(err){
@@ -67,10 +75,12 @@ flight_aware_service.prototype.storeAlerts = function(req,res,payload,config){
          else{
         	 logger.info("successful inserts")
         	 res.status(200)
+        	 bucket.disconnect()
         	 return res.json({"success":"ok"})
          }
 	 })
 }
+
 
 
 module.exports = flight_aware_service;
