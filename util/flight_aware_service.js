@@ -59,7 +59,7 @@ flight_aware_service.prototype.storeAlerts = function(req,res,payload,config){
 	var cluster = new couchbase.Cluster(cb_url);
 	cluster.authenticate(config.cb_user, config.cb_pwd);
 	var bucket = cluster.openBucket(config.cb_bucket);
-	var key = payload.flights.faFlightID;
+	var key = payload.flight.faFlightID;
 	 bucket.upsert(key,payload,function(err,result){
          if(err){
              logger.error("error while upserting : " + err)
