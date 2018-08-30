@@ -39,7 +39,7 @@ flight_aware_service.prototype.getAllFlightNums = function(req,res,payload,confi
 		params['date_start'] = start_date;
 		params['date_end'] = end_date;
 		params['channels'] = "{16 e_filed e_departure e_arrival e_diverted e_cancelled}"
-			
+		logger.info("PAYLOAD  : " + JSON.stringify(payload))	
 		return getJson.getStoreJson(flightAwareRestURI,apiUsername,apiKey,'/json/FlightXML2/SetAlert',params)},
 			{concurrency:1}).then(function(alertResults){
 				//logger.info("ALERT RESULTS " + JSON.stringify(alertResults));
